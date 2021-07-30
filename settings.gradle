@@ -1,0 +1,14 @@
+rootProject.name = "musca"
+include("musca-spec")
+include("musca-norm")
+include("musca-data")
+include("musca-core")
+
+//include("musca-srch")
+//include("musca-cach")
+
+//include("musca-http")
+//include("musca-msgq")
+//include("musca-cron")
+//include("musca-dubo")
+//include("musca-grpc")

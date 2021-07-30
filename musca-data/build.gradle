@@ -1,0 +1,41 @@
+plugins {
+    id("java")
+    id("org.jetbrains.kotlin.jvm") version("${kotlinVersion}")
+    id("org.jetbrains.kotlin.plugin.spring") version("${kotlinVersion}")
+    id("org.flywaydb.flyway") version("${flywayVersion}")
+}
+
+dependencies {
+    implementation(project(":musca-spec"))
+    implementation(project(":musca-norm"))
+    implementation("com.google.guava:guava:${guavaVersion}")
+
+//    implementation("org.apache.rocketmq:rocketmq-spring-boot-starter:${springRocketMqVersion}")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${springMybatisVersion}")
+
+    implementation("com.zaxxer:HikariCP:${hikariVersion}")
+    implementation("org.mariadb.jdbc:mariadb-java-client:${mariaJdbcVersion}")
+
+    implementation("org.featx.spec:spec:${featxSpecVersion}")
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+//    implementation("org.codehaus.groovy:groovy:${groovyVersion}")
+    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
+    testImplementation("org.jeasy:easy-random-core:5.0.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "${javaVersion}"
+    }
+}
+
+flyway {
+    url = ""
+    locations = ["db/migration"]
+    user = "spring-cloud"
+    password = ""
+    schemas = ["spring-cloud"]
+}
