@@ -12,19 +12,19 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
-public class CommentCriteria {
+public class FollowCriteria {
 
     @Serial
     private String code;
+
+    private Integer type;
+
+    private Integer status;
 
     private String target;
 
     private String targetCode;
 
     private String userCode;
-
-    private String content;
-
-    private Integer type;
 
 }

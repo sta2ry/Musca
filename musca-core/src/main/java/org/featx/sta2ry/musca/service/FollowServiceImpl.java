@@ -7,13 +7,13 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
-import org.featx.sta2ry.musca.criteria.CommentCriteria;
-import org.featx.sta2ry.musca.entity.CommentEntity;
-import org.featx.sta2ry.musca.mapper.CommentMapper;
-import org.featx.sta2ry.musca.model.CommentInfo;
-import org.featx.sta2ry.musca.model.CommentItem;
-import org.featx.sta2ry.musca.model.CommentPageQuery;
-import org.featx.sta2ry.musca.model.CommentSave;
+import org.featx.sta2ry.musca.criteria.FollowCriteria;
+import org.featx.sta2ry.musca.entity.FollowEntity;
+import org.featx.sta2ry.musca.mapper.FollowMapper;
+import org.featx.sta2ry.musca.model.FollowInfo;
+import org.featx.sta2ry.musca.model.FollowItem;
+import org.featx.sta2ry.musca.model.FollowPageQuery;
+import org.featx.sta2ry.musca.model.FollowSave;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,58 +23,58 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.featx.sta2ry.musca.convert.CommentConvert.*;
+import static org.featx.sta2ry.musca.convert.FollowConvert.*;
 /**
  *
  */
 @Slf4j
 @Service
 @DubboService
-public class CommentServiceImpl implements CommentService {
+public class FollowServiceImpl implements FollowService {
 
     @Resource
-    private CommentMapper commentMapper;
+    private FollowMapper followMapper;
 
     @Resource
     private IdGenerate idGenerate;
 
     @Override
     @Transactional
-    public CommentItem save(CommentSave commentSave) {
-        CommentEntity entity = toEntity(commentSave);
+    public FollowItem save(FollowSave followSave) {
+        FollowEntity entity = toEntity(followSave);
         if (StringUtil.isBlank(entity.getCode())) {
             entity.setCode(String.format("%s%s", "DFM", Long.toString(idGenerate.nextId(), 36)));
-            commentMapper.insert(entity);
+            followMapper.insert(entity);
         } else {
-            commentMapper.upsert(entity);
+            followMapper.upsert(entity);
         }
         return toItem(entity);
     }
 
     @Override
     @Transactional
-    public CommentItem update(CommentSave commentSave) {
-        CommentEntity entity = toEntity(commentSave);
-        commentMapper.update(entity);
+    public FollowItem update(FollowSave followSave) {
+        FollowEntity entity = toEntity(followSave);
+        followMapper.update(entity);
         return toItem(entity);
     }
 
     @Override
     public void delete(String code) {
-        commentMapper.delete(code, true);
+        followMapper.delete(code, true);
     }
 
     @Override
-    public CommentInfo findOne(String code) {
-        return toInfo(commentMapper.selectByCode(code));
+    public FollowInfo findOne(String code) {
+        return toInfo(followMapper.selectByCode(code));
     }
 
     @Override
-    public List<CommentItem> listByCodes(List<String> codes) {
+    public List<FollowItem> listByCodes(List<String> codes) {
         return Optional.ofNullable(codes)
                 .map(list -> list.stream().filter(StringUtil::isNotBlank).collect(Collectors.toList()))
                 .filter(CollectionUtil::isNotEmpty)
-                .map(list -> commentMapper.selectByCodes(list))
+                .map(list -> followMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
                         .map(this::toItem)
@@ -85,14 +85,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public QuerySection<CommentItem> page(CommentPageQuery pageQuery) {
-        CommentCriteria criteria = toCriteria(pageQuery);
-        long count = commentMapper.countByQuery(criteria);
+    public QuerySection<FollowItem> page(FollowPageQuery pageQuery) {
+        FollowCriteria criteria = toCriteria(pageQuery);
+        long count = followMapper.countByQuery(criteria);
         if(count <= 0) {
             return QuerySection.of(Lists.newArrayList());
         }
-        List<CommentEntity> moduleEntities =
-                commentMapper.selectByPage(criteria, pageQuery.correctProperties());
+        List<FollowEntity> moduleEntities =
+                followMapper.selectByPage(criteria, pageQuery.correctProperties());
         return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
                 .total(count);
     }

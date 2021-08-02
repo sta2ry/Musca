@@ -7,28 +7,29 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.model.BaseUnified;
 
+
 /**
  *
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CommentInfo extends BaseUnified {
+public class FollowSave extends BaseUnified {
 
     @Serial
-    private static final long serialVersionUID = -3141043832603954339L;
+    private static final long serialVersionUID = 5570811073514589053L;
 
     private String code;
+
+    private Integer type;
+
+    private Integer status;
 
     private String target;
 
     private String targetCode;
 
     private String userCode;
-
-    private String content;
-
-    private Integer type;
 
 
 }

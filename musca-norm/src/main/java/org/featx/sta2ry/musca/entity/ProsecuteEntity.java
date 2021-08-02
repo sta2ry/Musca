@@ -13,11 +13,19 @@ import org.featx.spec.entity.AbstractUnified;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CommentEntity extends AbstractUnified<Long> {
+public class ProsecuteEntity extends AbstractUnified<Long> {
     @Serial
     private static final long serialVersionUID = -4441039419344895608L;
 
     private String code;
+
+    private Integer type;
+
+    private Integer status;
+
+    private Integer cause;
+
+    private Integer reason;
 
     private String target;
 
@@ -25,9 +33,7 @@ public class CommentEntity extends AbstractUnified<Long> {
 
     private String userCode;
 
-    private String content;
-
-    private Integer type;
+    private String description;
 
 
 }

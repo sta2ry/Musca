@@ -12,10 +12,18 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
-public class CommentCriteria {
+public class ProsecuteCriteria {
 
     @Serial
     private String code;
+
+    private Integer type;
+
+    private Integer status;
+
+    private Integer cause;
+
+    private Integer reason;
 
     private String target;
 
@@ -23,8 +31,6 @@ public class CommentCriteria {
 
     private String userCode;
 
-    private String content;
-
-    private Integer type;
+    private String description;
 
 }

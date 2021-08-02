@@ -13,12 +13,20 @@ import org.featx.spec.model.BaseUnified;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CommentInfo extends BaseUnified {
+public class ProsecuteItem extends BaseUnified {
 
     @Serial
-    private static final long serialVersionUID = -3141043832603954339L;
+    private static final long serialVersionUID = 1668164802765732399L;
 
     private String code;
+
+    private Integer type;
+
+    private Integer status;
+
+    private Integer cause;
+
+    private Integer reason;
 
     private String target;
 
@@ -26,9 +34,7 @@ public class CommentInfo extends BaseUnified {
 
     private String userCode;
 
-    private String content;
-
-    private Integer type;
+    private String description;
 
 
 }

@@ -7,13 +7,13 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
-import org.featx.sta2ry.musca.criteria.CommentCriteria;
-import org.featx.sta2ry.musca.entity.CommentEntity;
-import org.featx.sta2ry.musca.mapper.CommentMapper;
-import org.featx.sta2ry.musca.model.CommentInfo;
-import org.featx.sta2ry.musca.model.CommentItem;
-import org.featx.sta2ry.musca.model.CommentPageQuery;
-import org.featx.sta2ry.musca.model.CommentSave;
+import org.featx.sta2ry.musca.criteria.ProsecuteCriteria;
+import org.featx.sta2ry.musca.entity.ProsecuteEntity;
+import org.featx.sta2ry.musca.mapper.ProsecuteMapper;
+import org.featx.sta2ry.musca.model.ProsecuteInfo;
+import org.featx.sta2ry.musca.model.ProsecuteItem;
+import org.featx.sta2ry.musca.model.ProsecutePageQuery;
+import org.featx.sta2ry.musca.model.ProsecuteSave;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,58 +23,58 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.featx.sta2ry.musca.convert.CommentConvert.*;
+import static org.featx.sta2ry.musca.convert.ProsecuteConvert.*;
 /**
  *
  */
 @Slf4j
 @Service
 @DubboService
-public class CommentServiceImpl implements CommentService {
+public class ProsecuteServiceImpl implements ProsecuteService {
 
     @Resource
-    private CommentMapper commentMapper;
+    private ProsecuteMapper prosecuteMapper;
 
     @Resource
     private IdGenerate idGenerate;
 
     @Override
     @Transactional
-    public CommentItem save(CommentSave commentSave) {
-        CommentEntity entity = toEntity(commentSave);
+    public ProsecuteItem save(ProsecuteSave prosecuteSave) {
+        ProsecuteEntity entity = toEntity(prosecuteSave);
         if (StringUtil.isBlank(entity.getCode())) {
             entity.setCode(String.format("%s%s", "DFM", Long.toString(idGenerate.nextId(), 36)));
-            commentMapper.insert(entity);
+            prosecuteMapper.insert(entity);
         } else {
-            commentMapper.upsert(entity);
+            prosecuteMapper.upsert(entity);
         }
         return toItem(entity);
     }
 
     @Override
     @Transactional
-    public CommentItem update(CommentSave commentSave) {
-        CommentEntity entity = toEntity(commentSave);
-        commentMapper.update(entity);
+    public ProsecuteItem update(ProsecuteSave prosecuteSave) {
+        ProsecuteEntity entity = toEntity(prosecuteSave);
+        prosecuteMapper.update(entity);
         return toItem(entity);
     }
 
     @Override
     public void delete(String code) {
-        commentMapper.delete(code, true);
+        prosecuteMapper.delete(code, true);
     }
 
     @Override
-    public CommentInfo findOne(String code) {
-        return toInfo(commentMapper.selectByCode(code));
+    public ProsecuteInfo findOne(String code) {
+        return toInfo(prosecuteMapper.selectByCode(code));
     }
 
     @Override
-    public List<CommentItem> listByCodes(List<String> codes) {
+    public List<ProsecuteItem> listByCodes(List<String> codes) {
         return Optional.ofNullable(codes)
                 .map(list -> list.stream().filter(StringUtil::isNotBlank).collect(Collectors.toList()))
                 .filter(CollectionUtil::isNotEmpty)
-                .map(list -> commentMapper.selectByCodes(list))
+                .map(list -> prosecuteMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
                         .map(this::toItem)
@@ -85,14 +85,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public QuerySection<CommentItem> page(CommentPageQuery pageQuery) {
-        CommentCriteria criteria = toCriteria(pageQuery);
-        long count = commentMapper.countByQuery(criteria);
+    public QuerySection<ProsecuteItem> page(ProsecutePageQuery pageQuery) {
+        ProsecuteCriteria criteria = toCriteria(pageQuery);
+        long count = prosecuteMapper.countByQuery(criteria);
         if(count <= 0) {
             return QuerySection.of(Lists.newArrayList());
         }
-        List<CommentEntity> moduleEntities =
-                commentMapper.selectByPage(criteria, pageQuery.correctProperties());
+        List<ProsecuteEntity> moduleEntities =
+                prosecuteMapper.selectByPage(criteria, pageQuery.correctProperties());
         return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
                 .total(count);
     }
