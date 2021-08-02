@@ -27,9 +27,6 @@ public class FollowMapperTest extends SpringDataTestSuit {
     private FollowEntity generate() {
         FollowEntity entity = generate(FollowEntity.class);
         entity.setCode(entity.getCode().length() > 32 ? entity.getCode().substring(0, 32) : entity.getCode());
-        entity.setName(entity.getName().length() > 32 ? entity.getName().substring(0, 32) : entity.getName());
-        entity.setDescription(entity.getDescription().length() > 255 ? entity.getDescription().substring(0, 255) :
-                entity.getDescription());
         return entity;
     }
 
@@ -46,9 +43,7 @@ public class FollowMapperTest extends SpringDataTestSuit {
     @Test
     void testUpdate() {
         FollowEntity newEntity = new FollowEntity();
-        newEntity.setName("name");
         newEntity.setType(2);
-        newEntity.setDescription("description");
         assertEquals(0, followMapper.update(newEntity));
 
         newEntity.setCode(followEntity.getCode());
@@ -56,9 +51,7 @@ public class FollowMapperTest extends SpringDataTestSuit {
 
 
         FollowEntity retrieveEntity = followMapper.selectByCode(followEntity.getCode());
-        followEntity.setName("name");
         followEntity.setType(2);
-        followEntity.setDescription("description");
         followEntity.setUpdatedAt(retrieveEntity.getUpdatedAt());
 
         assertEquals(followEntity, retrieveEntity);

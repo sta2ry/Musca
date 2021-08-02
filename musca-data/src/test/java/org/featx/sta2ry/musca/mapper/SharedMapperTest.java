@@ -27,9 +27,6 @@ public class SharedMapperTest extends SpringDataTestSuit {
     private SharedEntity generate() {
         SharedEntity entity = generate(SharedEntity.class);
         entity.setCode(entity.getCode().length() > 32 ? entity.getCode().substring(0, 32) : entity.getCode());
-        entity.setName(entity.getName().length() > 32 ? entity.getName().substring(0, 32) : entity.getName());
-        entity.setDescription(entity.getDescription().length() > 255 ? entity.getDescription().substring(0, 255) :
-                entity.getDescription());
         return entity;
     }
 
@@ -46,9 +43,7 @@ public class SharedMapperTest extends SpringDataTestSuit {
     @Test
     void testUpdate() {
         SharedEntity newEntity = new SharedEntity();
-        newEntity.setName("name");
         newEntity.setType(2);
-        newEntity.setDescription("description");
         assertEquals(0, sharedMapper.update(newEntity));
 
         newEntity.setCode(sharedEntity.getCode());
@@ -56,9 +51,7 @@ public class SharedMapperTest extends SpringDataTestSuit {
 
 
         SharedEntity retrieveEntity = sharedMapper.selectByCode(sharedEntity.getCode());
-        sharedEntity.setName("name");
         sharedEntity.setType(2);
-        sharedEntity.setDescription("description");
         sharedEntity.setUpdatedAt(retrieveEntity.getUpdatedAt());
 
         assertEquals(sharedEntity, retrieveEntity);

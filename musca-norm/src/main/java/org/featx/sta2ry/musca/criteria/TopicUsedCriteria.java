@@ -11,16 +11,16 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
-public class TopicusedCriteria {
+public class TopicUsedCriteria {
 
-    private String code
+    private String code;
 
-    private Integer type
+    private Integer type;
 
-    private String target
+    private String target;
 
-    private String targetCode
+    private String targetCode;
 
-    private String topicCode
+    private String topicCode;
 
 }

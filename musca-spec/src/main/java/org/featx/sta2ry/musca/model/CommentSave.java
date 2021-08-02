@@ -31,5 +31,4 @@ public class CommentSave extends BaseUnified {
 
     private Integer type;
 
-
 }

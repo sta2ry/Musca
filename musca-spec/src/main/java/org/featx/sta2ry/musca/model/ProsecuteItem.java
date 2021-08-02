@@ -28,7 +28,7 @@ public class ProsecuteItem extends BaseUnified {
 
     private Integer reason;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

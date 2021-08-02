@@ -9,7 +9,7 @@ import org.featx.sta2ry.musca.model.SharedSave;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "Musca-core", fallbackFactory = SharedFallbackFactory.class)
+@FeignClient(name = "musca-core", fallbackFactory = SharedFallbackFactory.class)
 @RequestMapping("/shared")
 public interface SharedEndpoint {
 

@@ -5,7 +5,7 @@ import java.io.Serial;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.featx.spec.entity.AbstractUnified;
+import org.featx.spec.entity.AbstractUpdate;
 
 /**
  *
@@ -13,7 +13,7 @@ import org.featx.spec.entity.AbstractUnified;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class FollowEntity extends AbstractUnified<Long> {
+public class FollowEntity extends AbstractUpdate<Long> {
     @Serial
     private static final long serialVersionUID = -4441039419344895608L;
 
@@ -23,7 +23,7 @@ public class FollowEntity extends AbstractUnified<Long> {
 
     private Integer status;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

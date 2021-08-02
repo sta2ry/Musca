@@ -19,19 +19,18 @@ public class SharedRecord {
 
     private static final long serialVersionUID = 3542473394788128677L;
 
-    private String code
+    private String code;
 
-    private Integer type
+    private Integer type;
 
-    private String target
+    private Integer target;
 
-    private String targetCode
+    private String targetCode;
 
-    private String platform
+    private String platform;
 
-    private String platformCode
+    private String platformCode;
 
-    private String userCode
-
+    private String userCode;
 
 }

@@ -9,7 +9,7 @@ import org.featx.sta2ry.musca.model.MentionSave;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "Musca-core", fallbackFactory = MentionFallbackFactory.class)
+@FeignClient(name = "musca-core", fallbackFactory = MentionFallbackFactory.class)
 @RequestMapping("/mention")
 public interface MentionEndpoint {
 

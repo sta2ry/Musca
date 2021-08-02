@@ -9,7 +9,7 @@ import org.featx.sta2ry.musca.model.TopicSave;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "Musca-core", fallbackFactory = TopicFallbackFactory.class)
+@FeignClient(name = "musca-core", fallbackFactory = TopicFallbackFactory.class)
 @RequestMapping("/topic")
 public interface TopicEndpoint {
 

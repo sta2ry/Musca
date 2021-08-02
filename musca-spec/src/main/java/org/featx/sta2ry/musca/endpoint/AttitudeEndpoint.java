@@ -9,7 +9,7 @@ import org.featx.sta2ry.musca.model.AttitudeSave;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "Musca-core", fallbackFactory = AttitudeFallbackFactory.class)
+@FeignClient(name = "musca-core", fallbackFactory = AttitudeFallbackFactory.class)
 @RequestMapping("/attitude")
 public interface AttitudeEndpoint {
 

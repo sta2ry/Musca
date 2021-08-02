@@ -27,9 +27,6 @@ public class MentionMapperTest extends SpringDataTestSuit {
     private MentionEntity generate() {
         MentionEntity entity = generate(MentionEntity.class);
         entity.setCode(entity.getCode().length() > 32 ? entity.getCode().substring(0, 32) : entity.getCode());
-        entity.setName(entity.getName().length() > 32 ? entity.getName().substring(0, 32) : entity.getName());
-        entity.setDescription(entity.getDescription().length() > 255 ? entity.getDescription().substring(0, 255) :
-                entity.getDescription());
         return entity;
     }
 
@@ -46,9 +43,7 @@ public class MentionMapperTest extends SpringDataTestSuit {
     @Test
     void testUpdate() {
         MentionEntity newEntity = new MentionEntity();
-        newEntity.setName("name");
         newEntity.setType(2);
-        newEntity.setDescription("description");
         assertEquals(0, mentionMapper.update(newEntity));
 
         newEntity.setCode(mentionEntity.getCode());
@@ -56,9 +51,7 @@ public class MentionMapperTest extends SpringDataTestSuit {
 
 
         MentionEntity retrieveEntity = mentionMapper.selectByCode(mentionEntity.getCode());
-        mentionEntity.setName("name");
         mentionEntity.setType(2);
-        mentionEntity.setDescription("description");
         mentionEntity.setUpdatedAt(retrieveEntity.getUpdatedAt());
 
         assertEquals(mentionEntity, retrieveEntity);

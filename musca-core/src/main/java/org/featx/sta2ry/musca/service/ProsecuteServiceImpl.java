@@ -7,6 +7,7 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
+import org.featx.sta2ry.musca.convert.ProsecuteConvert;
 import org.featx.sta2ry.musca.criteria.ProsecuteCriteria;
 import org.featx.sta2ry.musca.entity.ProsecuteEntity;
 import org.featx.sta2ry.musca.mapper.ProsecuteMapper;
@@ -77,7 +78,7 @@ public class ProsecuteServiceImpl implements ProsecuteService {
                 .map(list -> prosecuteMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
-                        .map(this::toItem)
+                        .map(ProsecuteConvert::toItem)
                         .sorted(Comparator.comparingInt(dme -> codes.indexOf(dme.getCode())))
                         .collect(Collectors.toList()))
                 .orElseGet(Lists::newArrayList);
@@ -93,7 +94,7 @@ public class ProsecuteServiceImpl implements ProsecuteService {
         }
         List<ProsecuteEntity> moduleEntities =
                 prosecuteMapper.selectByPage(criteria, pageQuery.correctProperties());
-        return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
+        return QuerySection.of(moduleEntities.stream().map(ProsecuteConvert::toItem).collect(Collectors.toList()))
                 .total(count);
     }
 
