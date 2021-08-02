@@ -6,6 +6,7 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
+import org.featx.sta2ry.musca.convert.TopicConvert;
 import org.featx.sta2ry.musca.criteria.TopicCriteria;
 import org.featx.sta2ry.musca.entity.TopicEntity;
 import org.featx.sta2ry.musca.mapper.TopicMapper;
@@ -21,6 +22,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.featx.sta2ry.musca.convert.TopicConvert.*;
 
 /**
  * @author Excepts
@@ -75,7 +78,7 @@ public class TopicServiceImpl implements TopicService {
                 .map(list -> topicMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
-                        .map(this::toItem)
+                        .map(TopicConvert::toItem)
                         .sorted(Comparator.comparingInt(dme -> codes.indexOf(dme.getCode())))
                         .collect(Collectors.toList()))
                 .orElseGet(Lists::newArrayList);
@@ -91,7 +94,7 @@ public class TopicServiceImpl implements TopicService {
         }
         List<TopicEntity> moduleEntities =
                 topicMapper.selectByPage(criteria, pageQuery.correctProperties());
-        return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
+        return QuerySection.of(moduleEntities.stream().map(TopicConvert::toItem).collect(Collectors.toList()))
                 .total(count);
     }
 

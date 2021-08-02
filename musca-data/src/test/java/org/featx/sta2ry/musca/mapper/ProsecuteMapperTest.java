@@ -27,7 +27,6 @@ public class ProsecuteMapperTest extends SpringDataTestSuit {
     private ProsecuteEntity generate() {
         ProsecuteEntity entity = generate(ProsecuteEntity.class);
         entity.setCode(entity.getCode().length() > 32 ? entity.getCode().substring(0, 32) : entity.getCode());
-        entity.setName(entity.getName().length() > 32 ? entity.getName().substring(0, 32) : entity.getName());
         entity.setDescription(entity.getDescription().length() > 255 ? entity.getDescription().substring(0, 255) :
                 entity.getDescription());
         return entity;
@@ -46,7 +45,6 @@ public class ProsecuteMapperTest extends SpringDataTestSuit {
     @Test
     void testUpdate() {
         ProsecuteEntity newEntity = new ProsecuteEntity();
-        newEntity.setName("name");
         newEntity.setType(2);
         newEntity.setDescription("description");
         assertEquals(0, prosecuteMapper.update(newEntity));
@@ -56,7 +54,6 @@ public class ProsecuteMapperTest extends SpringDataTestSuit {
 
 
         ProsecuteEntity retrieveEntity = prosecuteMapper.selectByCode(prosecuteEntity.getCode());
-        prosecuteEntity.setName("name");
         prosecuteEntity.setType(2);
         prosecuteEntity.setDescription("description");
         prosecuteEntity.setUpdatedAt(retrieveEntity.getUpdatedAt());

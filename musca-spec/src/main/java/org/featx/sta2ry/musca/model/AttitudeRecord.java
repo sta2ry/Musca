@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.model.Record;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -15,21 +17,21 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode
 @ToString(callSuper = true)
-public class AttitudeRecord {
+public class AttitudeRecord implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 3542473394788128677L;
 
-    private String code
+    private String code;
 
-    private String target
+    private Integer target;
 
-    private String targetCode
+    private String targetCode;
 
-    private String userCode
+    private String userCode;
 
-    private Integer score
+    private Integer score;
 
-    private Integer type
-
+    private Integer type;
 
 }

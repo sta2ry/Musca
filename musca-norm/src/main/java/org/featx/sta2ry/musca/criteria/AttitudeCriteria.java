@@ -13,16 +13,16 @@ import lombok.ToString;
 @ToString
 public class AttitudeCriteria {
 
-    private String code
+    private String code;
 
-    private String target
+    private String target;
 
-    private String targetCode
+    private String targetCode;
 
-    private String userCode
+    private String userCode;
 
-    private Integer score
+    private Integer score;
 
-    private Integer type
+    private Integer type;
 
 }

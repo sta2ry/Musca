@@ -27,9 +27,6 @@ public class CommentMapperTest extends SpringDataTestSuit {
     private CommentEntity generate() {
         CommentEntity entity = generate(CommentEntity.class);
         entity.setCode(entity.getCode().length() > 32 ? entity.getCode().substring(0, 32) : entity.getCode());
-        entity.setName(entity.getName().length() > 32 ? entity.getName().substring(0, 32) : entity.getName());
-        entity.setDescription(entity.getDescription().length() > 255 ? entity.getDescription().substring(0, 255) :
-                entity.getDescription());
         return entity;
     }
 
@@ -46,9 +43,7 @@ public class CommentMapperTest extends SpringDataTestSuit {
     @Test
     void testUpdate() {
         CommentEntity newEntity = new CommentEntity();
-        newEntity.setName("name");
         newEntity.setType(2);
-        newEntity.setDescription("description");
         assertEquals(0, commentMapper.update(newEntity));
 
         newEntity.setCode(commentEntity.getCode());
@@ -56,9 +51,7 @@ public class CommentMapperTest extends SpringDataTestSuit {
 
 
         CommentEntity retrieveEntity = commentMapper.selectByCode(commentEntity.getCode());
-        commentEntity.setName("name");
         commentEntity.setType(2);
-        commentEntity.setDescription("description");
         commentEntity.setUpdatedAt(retrieveEntity.getUpdatedAt());
 
         assertEquals(commentEntity, retrieveEntity);

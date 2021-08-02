@@ -24,7 +24,7 @@ public class FollowPageQuery extends PageRequest {
 
     private Integer status;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

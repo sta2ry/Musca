@@ -7,6 +7,7 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
+import org.featx.sta2ry.musca.convert.FollowConvert;
 import org.featx.sta2ry.musca.criteria.FollowCriteria;
 import org.featx.sta2ry.musca.entity.FollowEntity;
 import org.featx.sta2ry.musca.mapper.FollowMapper;
@@ -77,7 +78,7 @@ public class FollowServiceImpl implements FollowService {
                 .map(list -> followMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
-                        .map(this::toItem)
+                        .map(FollowConvert::toItem)
                         .sorted(Comparator.comparingInt(dme -> codes.indexOf(dme.getCode())))
                         .collect(Collectors.toList()))
                 .orElseGet(Lists::newArrayList);
@@ -93,7 +94,7 @@ public class FollowServiceImpl implements FollowService {
         }
         List<FollowEntity> moduleEntities =
                 followMapper.selectByPage(criteria, pageQuery.correctProperties());
-        return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
+        return QuerySection.of(moduleEntities.stream().map(FollowConvert::toItem).collect(Collectors.toList()))
                 .total(count);
     }
 

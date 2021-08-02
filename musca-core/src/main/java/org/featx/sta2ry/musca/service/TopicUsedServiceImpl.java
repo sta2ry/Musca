@@ -6,13 +6,14 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
-import org.featx.sta2ry.musca.criteria.TopicusedCriteria;
-import org.featx.sta2ry.musca.entity.TopicusedEntity;
-import org.featx.sta2ry.musca.mapper.TopicusedMapper;
-import org.featx.sta2ry.musca.model.TopicusedInfo;
-import org.featx.sta2ry.musca.model.TopicusedItem;
-import org.featx.sta2ry.musca.model.TopicusedPageQuery;
-import org.featx.sta2ry.musca.model.TopicusedSave;
+import org.featx.sta2ry.musca.convert.TopicUsedConvert;
+import org.featx.sta2ry.musca.criteria.TopicUsedCriteria;
+import org.featx.sta2ry.musca.entity.TopicUsedEntity;
+import org.featx.sta2ry.musca.mapper.TopicUsedMapper;
+import org.featx.sta2ry.musca.model.TopicUsedInfo;
+import org.featx.sta2ry.musca.model.TopicUsedItem;
+import org.featx.sta2ry.musca.model.TopicUsedPageQuery;
+import org.featx.sta2ry.musca.model.TopicUsedSave;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,24 +23,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.featx.sta2ry.musca.convert.TopicUsedConvert.*;
+
 /**
  * @author Excepts
  * @since 2020/4/12 14:27
  */
 @Slf4j
 @Service
-public class TopicusedServiceImpl implements TopicusedService {
+public class TopicUsedServiceImpl implements TopicUsedService {
 
     @Resource
-    private TopicusedMapper topicusedMapper;
+    private TopicUsedMapper topicusedMapper;
 
     @Resource
     private IdGenerate idGenerate;
 
     @Override
     @Transactional
-    public TopicusedItem save(TopicusedSave topicusedSave) {
-        TopicusedEntity entity = toEntity(topicusedSave);
+    public TopicUsedItem save(TopicUsedSave topicusedSave) {
+        TopicUsedEntity entity = toEntity(topicusedSave);
         if (StringUtil.isBlank(entity.getCode())) {
             entity.setCode(String.format("%s%s", "DFM", Long.toString(idGenerate.nextId(), 36)));
             topicusedMapper.insert(entity);
@@ -51,8 +54,8 @@ public class TopicusedServiceImpl implements TopicusedService {
 
     @Override
     @Transactional
-    public TopicusedItem update(TopicusedSave topicusedSave) {
-        TopicusedEntity entity = toEntity(topicusedSave);
+    public TopicUsedItem update(TopicUsedSave topicusedSave) {
+        TopicUsedEntity entity = toEntity(topicusedSave);
         topicusedMapper.update(entity);
         return toItem(entity);
     }
@@ -63,19 +66,19 @@ public class TopicusedServiceImpl implements TopicusedService {
     }
 
     @Override
-    public TopicusedInfo findOne(String code) {
+    public TopicUsedInfo findOne(String code) {
         return toInfo(topicusedMapper.selectByCode(code));
     }
 
     @Override
-    public List<TopicusedItem> listByCodes(List<String> codes) {
+    public List<TopicUsedItem> listByCodes(List<String> codes) {
         return Optional.ofNullable(codes)
                 .map(list -> list.stream().filter(StringUtil::isNotBlank).collect(Collectors.toList()))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> topicusedMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
-                        .map(this::toItem)
+                        .map(TopicUsedConvert::toItem)
                         .sorted(Comparator.comparingInt(dme -> codes.indexOf(dme.getCode())))
                         .collect(Collectors.toList()))
                 .orElseGet(Lists::newArrayList);
@@ -83,15 +86,15 @@ public class TopicusedServiceImpl implements TopicusedService {
 
     @Override
     @Transactional(readOnly = true)
-    public QuerySection<TopicusedItem> page(TopicusedPageQuery pageQuery) {
-        TopicusedCriteria criteria = toCriteria(pageQuery);
+    public QuerySection<TopicUsedItem> page(TopicUsedPageQuery pageQuery) {
+        TopicUsedCriteria criteria = toCriteria(pageQuery);
         long count = topicusedMapper.countByQuery(criteria);
         if(count <= 0) {
             return QuerySection.of(Lists.newArrayList());
         }
-        List<TopicusedEntity> moduleEntities =
+        List<TopicUsedEntity> moduleEntities =
                 topicusedMapper.selectByPage(criteria, pageQuery.correctProperties());
-        return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
+        return QuerySection.of(moduleEntities.stream().map(TopicUsedConvert::toItem).collect(Collectors.toList()))
                 .total(count);
     }
 

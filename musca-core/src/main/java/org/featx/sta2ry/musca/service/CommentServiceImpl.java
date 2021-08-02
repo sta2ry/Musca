@@ -7,6 +7,7 @@ import org.featx.spec.feature.IdGenerate;
 import org.featx.spec.model.QuerySection;
 import org.featx.spec.util.CollectionUtil;
 import org.featx.spec.util.StringUtil;
+import org.featx.sta2ry.musca.convert.CommentConvert;
 import org.featx.sta2ry.musca.criteria.CommentCriteria;
 import org.featx.sta2ry.musca.entity.CommentEntity;
 import org.featx.sta2ry.musca.mapper.CommentMapper;
@@ -77,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
                 .map(list -> commentMapper.selectByCodes(list))
                 .filter(CollectionUtil::isNotEmpty)
                 .map(list -> list.stream()
-                        .map(this::toItem)
+                        .map(CommentConvert::toItem)
                         .sorted(Comparator.comparingInt(dme -> codes.indexOf(dme.getCode())))
                         .collect(Collectors.toList()))
                 .orElseGet(Lists::newArrayList);
@@ -93,7 +94,7 @@ public class CommentServiceImpl implements CommentService {
         }
         List<CommentEntity> moduleEntities =
                 commentMapper.selectByPage(criteria, pageQuery.correctProperties());
-        return QuerySection.of(moduleEntities.stream().map(this::toItem).collect(Collectors.toList()))
+        return QuerySection.of(moduleEntities.stream().map(CommentConvert::toItem).collect(Collectors.toList()))
                 .total(count);
     }
 

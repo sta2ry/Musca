@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.entity.AbstractUnified;
 
+import java.io.Serial;
+
 /**
  * @author Excepts
  * @since 2020/4/12 13:52
@@ -14,13 +16,8 @@ import org.featx.spec.entity.AbstractUnified;
 @ToString(callSuper = true)
 public class TopicEntity extends AbstractUnified<Long> {
 
+    @Serial
     private static final long serialVersionUID = -4441039419344895608L;
 
-    private String code
-
-    private Integer type
-
-    private String name
-
-
+    private String description;
 }

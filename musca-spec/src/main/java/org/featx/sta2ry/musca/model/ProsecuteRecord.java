@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.model.Record;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode
 @ToString(callSuper = true)
-public class ProsecuteRecord {
+public class ProsecuteRecord implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 3542473394788128677L;
@@ -31,7 +32,7 @@ public class ProsecuteRecord {
 
     private Integer reason;
 
-    private String target;
+    private String Integer;
 
     private String targetCode;
 

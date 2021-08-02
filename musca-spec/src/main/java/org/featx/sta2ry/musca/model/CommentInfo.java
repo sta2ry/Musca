@@ -20,7 +20,7 @@ public class CommentInfo extends BaseUnified {
 
     private String code;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

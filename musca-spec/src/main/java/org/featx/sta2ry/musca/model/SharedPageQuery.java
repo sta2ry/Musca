@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.model.PageRequest;
 
+import java.io.Serial;
+
 /**
  * @author Excepts
  * @since 2020/4/11 22:51
@@ -14,21 +16,21 @@ import org.featx.spec.model.PageRequest;
 @ToString(callSuper = true)
 public class SharedPageQuery extends PageRequest {
 
+    @Serial
     private static final long serialVersionUID = 564823245124563273L;
 
-    private String code
+    private String code;
 
-    private Integer type
+    private Integer type;
 
-    private String target
+    private Integer target;
 
-    private String targetCode
+    private String targetCode;
 
-    private String platform
+    private String platform;
 
-    private String platformCode
+    private String platformCode;
 
-    private String userCode
-
+    private String userCode;
 
 }

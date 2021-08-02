@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.entity.AbstractUnified;
+import org.featx.spec.entity.AbstractUpdate;
+
+import java.io.Serial;
 
 /**
  * @author Excepts
@@ -12,19 +15,17 @@ import org.featx.spec.entity.AbstractUnified;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class TopicusedEntity extends AbstractUnified<Long> {
+public class TopicUsedEntity extends AbstractUpdate<Long> {
 
+    @Serial
     private static final long serialVersionUID = -4441039419344895608L;
 
-    private String code
+    private String code;
 
-    private Integer type
+    private Integer target;
 
-    private String target
+    private String targetCode;
 
-    private String targetCode
-
-    private String topicCode
-
+    private String topicCode;
 
 }

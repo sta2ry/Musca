@@ -3,10 +3,10 @@ package org.featx.sta2ry.musca.endpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.featx.spec.model.BaseResponse;
 import org.featx.spec.model.PageResponse;
-import org.featx.sta2ry.musca.model.TopicusedInfo;
-import org.featx.sta2ry.musca.model.TopicusedItem;
-import org.featx.sta2ry.musca.model.TopicusedPageQuery;
-import org.featx.sta2ry.musca.model.TopicusedSave;
+import org.featx.sta2ry.musca.model.TopicUsedInfo;
+import org.featx.sta2ry.musca.model.TopicUsedItem;
+import org.featx.sta2ry.musca.model.TopicUsedPageQuery;
+import org.featx.sta2ry.musca.model.TopicUsedSave;
 import org.springframework.cloud.openfeign.FallbackFactory;
 
 import java.util.Collections;
@@ -19,15 +19,15 @@ public class TopicusedFallbackFactory implements FallbackFactory<TopicusedEndpoi
     public TopicusedEndpoint create(Throwable cause) {
         return new TopicusedEndpoint() {
             @Override
-            public BaseResponse<TopicusedItem> save(TopicusedSave topicusedSave) {
+            public BaseResponse<TopicUsedItem> save(TopicUsedSave topicusedSave) {
                 log.error("Rpc topicused save error", cause);
-                return BaseResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, cause.getMessage()).of(TopicusedItem.class);
+                return BaseResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, cause.getMessage()).of(TopicUsedItem.class);
             }
 
             @Override
-            public BaseResponse<TopicusedItem> update(TopicusedSave topicusedSave) {
+            public BaseResponse<TopicUsedItem> update(TopicUsedSave topicusedSave) {
                 log.error("Rpc topicused update error", cause);
-                return BaseResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, cause.getMessage()).of(TopicusedItem.class);
+                return BaseResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, cause.getMessage()).of(TopicUsedItem.class);
             }
 
             @Override
@@ -37,16 +37,16 @@ public class TopicusedFallbackFactory implements FallbackFactory<TopicusedEndpoi
             }
 
             @Override
-            public BaseResponse<TopicusedInfo> get(String topicusedCode) {
+            public BaseResponse<TopicUsedInfo> get(String topicusedCode) {
                 log.error("Rpc topicused retrieve error", cause);
-                return BaseResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, cause.getMessage()).of(TopicusedInfo.class);
+                return BaseResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, cause.getMessage()).of(TopicUsedInfo.class);
             }
 
             @Override
-            public PageResponse<TopicusedItem> page(TopicusedPageQuery pageQuery) {
+            public PageResponse<TopicUsedItem> page(TopicUsedPageQuery pageQuery) {
                 log.error("Rpc page topicused retrieve error", cause);
                 return PageResponse.occur(SERVER_REMOTE_PROCEDURE_CALL, Collections.singletonList(cause.getMessage()))
-                        .ofList(TopicusedItem.class);
+                        .ofList(TopicUsedItem.class);
             }
         };
     }

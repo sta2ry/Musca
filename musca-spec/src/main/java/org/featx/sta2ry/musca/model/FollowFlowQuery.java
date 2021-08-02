@@ -24,7 +24,7 @@ public class FollowFlowQuery extends FlowRequest {
 
     private Integer status;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

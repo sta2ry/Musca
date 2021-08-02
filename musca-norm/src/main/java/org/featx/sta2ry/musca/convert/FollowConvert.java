@@ -16,27 +16,21 @@ public class FollowConvert {
     public static FollowEntity toEntity(FollowSave followSave) {
         FollowEntity followEntity = new FollowEntity();
         followEntity.setCode(followSave.getCode());
-        followEntity.setName(followSave.getName());
         followEntity.setType(followSave.getType());
-        followEntity.setDescription(followSave.getDescription());
         return followEntity;
     }
 
     public static FollowInfo toInfo(FollowEntity entity) {
         FollowInfo info = new FollowInfo();
         info.setCode(entity.getCode());
-        info.setName(entity.getName());
         info.setType(entity.getType());
-        info.setDescription(entity.getDescription());
         return info;
     }
 
     public static FollowItem toItem(FollowEntity entity) {
         FollowItem item = new FollowItem();
         item.setCode(entity.getCode());
-        item.setName(entity.getName());
         item.setType(entity.getType());
-        item.setDescription(entity.getDescription());
         return item;
     }
 

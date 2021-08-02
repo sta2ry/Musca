@@ -20,7 +20,7 @@ public class CommentPageQuery extends PageRequest {
 
     private String code;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

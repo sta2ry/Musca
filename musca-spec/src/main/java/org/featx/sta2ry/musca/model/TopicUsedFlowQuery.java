@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.featx.spec.model.FlowRequest;
 
+import java.io.Serial;
+
 /**
  * @author Excepts
  * @since 2020/4/11 23:26
@@ -12,18 +14,19 @@ import org.featx.spec.model.FlowRequest;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class TopicusedFlowQuery extends FlowRequest {
+public class TopicUsedFlowQuery extends FlowRequest {
 
+    @Serial
     private static final long serialVersionUID = -3378756542362683471L;
 
-    private String code
+    private String code;
 
-    private Integer type
+    private Integer type;
 
-    private String target
+    private Integer target;
 
-    private String targetCode
+    private String targetCode;
 
-    private String topicCode
+    private String topicCode;
 
 }

@@ -13,10 +13,10 @@ import lombok.ToString;
 @ToString
 public class TopicCriteria {
 
-    private String code
+    private String code;
 
-    private Integer type
+    private Integer type;
 
-    private String name
+    private String name;
 
 }

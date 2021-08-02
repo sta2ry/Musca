@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2020/4/12 13:58
  */
 @SpringBootApplication
-public class TempletApplication {
+public class MuscaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TempletApplication.class);
+        SpringApplication.run(MuscaApplication.class);
     }
 }

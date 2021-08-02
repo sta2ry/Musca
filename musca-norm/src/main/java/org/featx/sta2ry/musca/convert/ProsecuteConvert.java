@@ -16,7 +16,6 @@ public class ProsecuteConvert {
     public static ProsecuteEntity toEntity(ProsecuteSave prosecuteSave) {
         ProsecuteEntity prosecuteEntity = new ProsecuteEntity();
         prosecuteEntity.setCode(prosecuteSave.getCode());
-        prosecuteEntity.setName(prosecuteSave.getName());
         prosecuteEntity.setType(prosecuteSave.getType());
         prosecuteEntity.setDescription(prosecuteSave.getDescription());
         return prosecuteEntity;
@@ -25,7 +24,6 @@ public class ProsecuteConvert {
     public static ProsecuteInfo toInfo(ProsecuteEntity entity) {
         ProsecuteInfo info = new ProsecuteInfo();
         info.setCode(entity.getCode());
-        info.setName(entity.getName());
         info.setType(entity.getType());
         info.setDescription(entity.getDescription());
         return info;
@@ -34,7 +32,6 @@ public class ProsecuteConvert {
     public static ProsecuteItem toItem(ProsecuteEntity entity) {
         ProsecuteItem item = new ProsecuteItem();
         item.setCode(entity.getCode());
-        item.setName(entity.getName());
         item.setType(entity.getType());
         item.setDescription(entity.getDescription());
         return item;

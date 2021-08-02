@@ -28,7 +28,7 @@ public class ProsecuteFlowQuery extends FlowRequest {
 
     private Integer reason;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

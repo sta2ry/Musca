@@ -28,7 +28,7 @@ public class ProsecutePageQuery extends PageRequest {
 
     private Integer reason;
 
-    private String target;
+    private Integer target;
 
     private String targetCode;
 

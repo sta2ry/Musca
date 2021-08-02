@@ -4,11 +4,11 @@ import org.featx.spec.model.BaseResponse;
 import org.featx.spec.model.PageResponse;
 import org.featx.spec.model.QuerySection;
 import org.featx.sta2ry.musca.endpoint.TopicusedEndpoint;
-import org.featx.sta2ry.musca.model.TopicusedInfo;
-import org.featx.sta2ry.musca.model.TopicusedItem;
-import org.featx.sta2ry.musca.model.TopicusedPageQuery;
-import org.featx.sta2ry.musca.model.TopicusedSave;
-import org.featx.sta2ry.musca.service.TopicusedService;
+import org.featx.sta2ry.musca.model.TopicUsedInfo;
+import org.featx.sta2ry.musca.model.TopicUsedItem;
+import org.featx.sta2ry.musca.model.TopicUsedPageQuery;
+import org.featx.sta2ry.musca.model.TopicUsedSave;
+import org.featx.sta2ry.musca.service.TopicUsedService;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -16,14 +16,14 @@ import javax.annotation.Resource;
 @RestController
 public class TopicusedController implements TopicusedEndpoint {
     @Resource
-    private TopicusedService topicusedService;
+    private TopicUsedService topicusedService;
     @Override
-    public BaseResponse<TopicusedItem> save(TopicusedSave topicusedSave) {
+    public BaseResponse<TopicUsedItem> save(TopicUsedSave topicusedSave) {
         return BaseResponse.succeeded(topicusedService.save(topicusedSave));
     }
 
     @Override
-    public BaseResponse<TopicusedItem> update(TopicusedSave topicusedSave) {
+    public BaseResponse<TopicUsedItem> update(TopicUsedSave topicusedSave) {
         return BaseResponse.succeeded(topicusedService.update(topicusedSave));
     }
 
@@ -34,13 +34,13 @@ public class TopicusedController implements TopicusedEndpoint {
     }
 
     @Override
-    public BaseResponse<TopicusedInfo> get(String topicusedCode) {
+    public BaseResponse<TopicUsedInfo> get(String topicusedCode) {
         return BaseResponse.succeeded(topicusedService.findOne(topicusedCode));
     }
 
     @Override
-    public PageResponse<TopicusedItem> page(TopicusedPageQuery pageQuery) {
-        QuerySection<TopicusedItem> section = topicusedService.page(pageQuery);
+    public PageResponse<TopicUsedItem> page(TopicUsedPageQuery pageQuery) {
+        QuerySection<TopicUsedItem> section = topicusedService.page(pageQuery);
         return PageResponse.succeeded(section.list()).page(pageQuery.getPage()).total(section.getTotal());
     }
 }
